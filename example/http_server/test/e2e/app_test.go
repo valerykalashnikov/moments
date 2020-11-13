@@ -9,8 +9,9 @@ import (
 )
 
 func TestApp(t *testing.T) {
-
-	for i := 0; i < 60; i++ {
+	var tracksCount = 60
+	fmt.Printf("Waiting for 1 minute to  track %d requests...\n", tracksCount)
+	for i := 0; i < tracksCount; i++ {
 		time.Sleep(1 * time.Second)
 
 		_, err := http.Get("http://localhost:8080")
