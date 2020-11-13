@@ -2,4 +2,4 @@ language: go
 go:
   - 1.14.x
   - tip
-script: go test
+script: go test --race

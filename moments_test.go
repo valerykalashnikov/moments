@@ -52,13 +52,11 @@ func TestSaveMoments(t *testing.T) {
 	counter := moments.NewMomentsCounter(movingWindow)
 
 	var wg sync.WaitGroup
-	wg.Add(2)
-	go func() {
-		defer wg.Done()
-		counter.Track()
-	}()
 
-	go func() {
+	counter.Track()
+	wg.Add(2)
+
+	saveMoments := func(wg *sync.WaitGroup) {
 		defer wg.Done()
 		err := counter.Save(&b)
 		if err != nil {
@@ -66,7 +64,11 @@ func TestSaveMoments(t *testing.T) {
 				t.Error("Unexpected error: ", err)
 			}
 		}
-	}()
+	}
+
+	// testing for concurrent save
+	go saveMoments(&wg)
+	go saveMoments(&wg)
 
 	wg.Wait()
 
