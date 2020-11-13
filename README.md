@@ -1,4 +1,6 @@
 # Moments
+![Current master build status](https://travis-ci.org/valerykalashnikov/moments.svg?branch=master)
+
 
 Embeddable timeseries storage to track moments for n previous minutes/seconds/milliseconds
 
