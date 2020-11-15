@@ -2,4 +2,15 @@ language: go
 go:
   - 1.14.x
   - tip
-script: go test --race
+service:
+  - docker
+
+script:
+  - go test --race
+  - docker build --no-cache -t valerykalashnikov/moments_http .
+
+deploy:
+  provider: script
+  script: bash .docker_push
+  on:
+    branch: master
